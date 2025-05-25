@@ -16,23 +16,23 @@ class NotesTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->clickLink('Log in')
-                    ->assertPathIs('/login')
-                    ->type('email', 'user@gmail.com')
-                    ->type('password', 'password')
-                    ->press('LOG IN')
-                    ->assertPathIs('/dashboard')
-                    ->clickLink('Notes')
-                    ->clickLink('Create Note')
-                    ->assertPathIs('/create-note')
-                    ->type('title', 'example note yuhuuu')
-                    ->type('description', 'deskripsi notes oyee')
-                    ->press('CREATE')
-                    ->assertPathIs('/notes');
+                ->clickLink('Log in')
+                ->assertPathIs('/login')
+                ->type('email', 'user@gmail.com')
+                ->type('password', 'password')
+                ->press('LOG IN')
+                ->assertPathIs('/dashboard')
+                ->clickLink('Notes')
+                ->clickLink('Create Note')
+                ->assertPathIs('/create-note')
+                ->type('title', 'example note yuhuuu')
+                ->type('description', 'deskripsi notes oyee')
+                ->press('CREATE')
+                ->assertPathIs('/notes');
         });
     }
 
-        /**
+    /**
      * A Dusk test example.
      * @group note-edit
      */
@@ -40,19 +40,61 @@ class NotesTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->clickLink('Log in')
-                    ->assertPathIs('/login')
-                    ->type('email', 'user@gmail.com')
-                    ->type('password', 'password')
-                    ->press('LOG IN')
-                    ->assertPathIs('/dashboard')
-                    ->clickLink('Notes')
-                    ->clickLink('Edit')
-                    ->assertPathIs('/edit-note-page/2')
-                    ->type('title', 'example note yuhuuu edit')
-                    ->type('description', 'deskripsi notes oyee edit')
-                    ->press('UPDATE')
-                    ->assertPathIs('/notes');
+                ->clickLink('Log in')
+                ->assertPathIs('/login')
+                ->type('email', 'user@gmail.com')
+                ->type('password', 'password')
+                ->press('LOG IN')
+                ->assertPathIs('/dashboard')
+                ->clickLink('Notes')
+                ->clickLink('Edit')
+                ->assertPathIs('/edit-note-page/2')
+                ->type('title', 'example note yuhuuu edit')
+                ->type('description', 'deskripsi notes oyee edit')
+                ->press('UPDATE')
+                ->assertPathIs('/notes');
+        });
+    }
+
+
+    /**
+     * A Dusk test example.
+     * @group note-show
+     */
+    public function testShowNotes(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->clickLink('Log in')
+                ->assertPathIs('/login')
+                ->type('email', 'user@gmail.com')
+                ->type('password', 'password')
+                ->press('LOG IN')
+                ->assertPathIs('/dashboard')
+                ->clickLink('Notes')
+                ->clickLink('example note yuhuuu edit')
+                ->assertPathIs('/note/2')
+                ->assertSee('example note yuhuuu edit');
+        });
+    }
+
+    /**
+     * A Dusk test example.
+     * @group note-delete
+     */
+    public function testDeleteNotes(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->clickLink('Log in')
+                ->assertPathIs('/login')
+                ->type('email', 'user@gmail.com')
+                ->type('password', 'password')
+                ->press('LOG IN')
+                ->assertPathIs('/dashboard')
+                ->clickLink('Notes')
+                ->press('Delete')
+                ->assertSee('Note has been delete');
         });
     }
 }
